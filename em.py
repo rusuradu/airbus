@@ -8,8 +8,10 @@ class EM:
         self.max_step = 12
         self.clusters = 2
         self.miu = [0.0] * self.clusters
-        for i in range(self.clusters):
-            self.miu[i] = random.uniform(0.1, 1.0)
+
+        self.miu[0] = random.uniform(0.1, 0.5)
+        self.miu[1] = random.uniform(0.5, 0.99)
+
         self.sigma = [0.0] * self.clusters
         for i in range(self.clusters):
             self.sigma[i] = random.uniform(0.1, 1.0)

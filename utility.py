@@ -3,6 +3,7 @@ import pandas as pd
 import numpy as np
 import cv2
 import math
+import matplotlib.pyplot as plt
 
 df = pd.read_csv('../ShipDetection/5percent/_data.csv')
 path_train = '../input/train/'
@@ -124,3 +125,12 @@ def create_prediction_matrix(img, miu, sigma, pgk, clusters):
                 line.append(0)
         res.append(line)
     return res
+
+
+def plot_image(img):
+    fig = plt.figure(1, figsize=(15, 15))
+    ax = fig.add_subplot(1, 2, 2)
+    ax.imshow(img)
+    ax.set_title('EM')
+
+    plt.show()
