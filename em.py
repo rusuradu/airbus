@@ -24,6 +24,7 @@ class EM:
     def run_it(self):
         start = timer()
         step = 1
+        print (self.img.shape)
         while step < self.max_step:
             sum_pgkxt = [0.0] * self.clusters
             miu_est = [0.0] * self.clusters
@@ -38,6 +39,7 @@ class EM:
                         miu_est[i] = miu_est[i] + val * pixel
                         sigma_est[i] = sigma_est[i] + val * ((pixel - self.miu[i]) ** 2)
                     total = total + 1
+            print (total)
 
             for i in range(self.clusters):
                 miu_est[i] = miu_est[i] / sum_pgkxt[i]

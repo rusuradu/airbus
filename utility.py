@@ -17,7 +17,7 @@ tile_size = (512, 512)
 def get_filename(image_id, image_type):
     check_dir = False
     if "Train" == image_type:
-        data_path = "../ShipDetection/5percent"
+        data_path = "../ShipDetection/TrainFull"
     elif "Test" == image_type:
         data_path = "../ShipDetection/TestFull"
     else:
