@@ -9,8 +9,8 @@ testFile = open("../_10kRun/Raw/_test_Data.csv", "w")
 labelFile = open("../_10kRun/Raw/labels.csv", "w")
 
 header = lines.pop(0)
-trainFile.write(header)
-testFile.write(header)
+trainFile.write("%s\n" % header)
+testFile.write("%s\n" % header)
 labelFile.write("image,tag\n")
 
 index = 0
@@ -28,16 +28,16 @@ for line in lines:
         dc[key] = dc[key] + [value]
 
 
-for line in lines:
+for img_key in dc.keys():
     x = random.random()
     index = index + 1
     if x < 0.05:
         print("%d" % index)
         rnd = random.random()
         if rnd < 0.95:
-            imgFile = line.split(",")[0]
+            imgFile = img_key
             lst = dc[imgFile]
-            if len(lst) == 0:
+            if len(lst[0]) == 0:
                 trainFile.write("%s,\n" % imgFile)
                 labelFile.write("%s,0\n" % imgFile)
             else:
@@ -46,9 +46,9 @@ for line in lines:
                 labelFile.write("%s,1\n" % imgFile)
             shutil.copy("../ShipDetection/TrainFull/%s" % imgFile, "../_10kRun/Raw/train/%s" % imgFile)
         else:
-            imgFile = line.split(",")[0]
+            imgFile = img_key
             lst = dc[imgFile]
-            if len(lst) == 0:
+            if len(lst[0]) == 0:
                 testFile.write("%s,\n" % imgFile)
             else:
                 for val in lst:
