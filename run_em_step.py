@@ -8,6 +8,7 @@ from timeit import default_timer as timer
 
 tile_size = (256, 256)
 
+
 def process_image(image_id, thread_number, locale):
     print("%d start" % thread_number)
     img = cv2.imread(get_filename(image_id, locale), cv2.IMREAD_GRAYSCALE)
@@ -42,11 +43,10 @@ def process_image(image_id, thread_number, locale):
     thread_file.close()
 
 
-MAX_THREADS = 5
+MAX_THREADS = 1
 
 df = pd.read_csv('gigel.csv')
 img_ids = df.ImageId.values
-#locales = ['Test']
 locales = ['Test', 'Test', 'Test', 'Test', 'Test', 'Train', 'Train', 'Train', 'Train', 'Train']
 
 thread_no = 0
