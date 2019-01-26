@@ -11,8 +11,8 @@ tile_size = (256, 256)
 
 def process_image(image_id, thread_number, locale):
     print("%d start" % thread_number)
-    img = cv2.imread(get_filename(image_id, locale), cv2.IMREAD_GRAYSCALE)
-    img = gaussian(img, 0.5)
+    img = cv2.imread(get_filename(image_id, "10k"), cv2.IMREAD_GRAYSCALE)
+    img = gaussian(img, 0.5) # TODO maybe change to 1
 
     final_img = img.copy()
     img = cv2.resize(img, dsize=tile_size)
@@ -45,15 +45,24 @@ def process_image(image_id, thread_number, locale):
 
 MAX_THREADS = 1
 
-df = pd.read_csv('gigel.csv')
-img_ids = df.ImageId.values
-locales = ['Test', 'Test', 'Test', 'Test', 'Test', 'Train', 'Train', 'Train', 'Train', 'Train']
-
-thread_no = 0
-values_no = math.floor(len(img_ids) / MAX_THREADS)
 if __name__ == '__main__':
+    lines = [line.rstrip("\n") for line in open('../_10kRun/BeforeEm/First_class.csv')]
+    img_ids = []
+    lines.pop(0)
+    for line in lines:
+        imgFile = line.split("|")[0]
+        pred = line.split("|")[1].split(",")[0].split(" ")[1]
+        iPred = int(pred)
+        if iPred == 1:
+            img_ids.append(imgFile)
+
+    locales = ["Gigel"]
+
+    thread_no = 0
+    values_no = math.floor(len(img_ids) / MAX_THREADS)
+    #img_ids = img_ids[89:90]
     while thread_no < MAX_THREADS:
-        if thread_no != MAX_THREADS:
+        if thread_no < MAX_THREADS - 1:
             thread_imgs = img_ids[(thread_no * values_no):((thread_no + 1) * values_no)]
             loc = locales[(thread_no * values_no):((thread_no + 1) * values_no)]
         else:

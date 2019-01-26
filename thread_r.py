@@ -15,5 +15,5 @@ class my_process(Process):
         mx = len(self.img_ids)
         for img_id in self.img_ids:
             print("Thread %d: Process %d out of %d" % (self.index, ind, mx))
-            self.method(img_id, self.index, self.locales[ind])
+            self.method(img_id, self.index, '10k')
             ind = ind + 1

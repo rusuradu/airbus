@@ -25,6 +25,8 @@ def get_filename(image_id, image_type):
         data_path = "../ShipDetection/TrainFull"
     elif "Test" == image_type:
         data_path = "../ShipDetection/TestFull"
+    elif "10k" == image_type:
+        data_path = "../_10kRun/BeforeEM"
     else:
         raise Exception("Image type '%s' is not recognized" % image_type)
 
