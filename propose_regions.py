@@ -10,7 +10,7 @@ WINDOW_SIZE = 224
 STRIDE = 136
 
 
-def load_prediction_matrix(image_id, orig_img, folder = "../EM_Result"):
+def load_prediction_matrix(image_id, folder = "../EM_Result1"):
     im_pred = np.zeros((IMAGE_SIZE_GLOBAL, IMAGE_SIZE_GLOBAL), np.uint8)
     lines = [line.rstrip('\n ') for line in open("%s/%s" % (folder, image_id.split(".")[0]))]
     i = 0
@@ -73,7 +73,7 @@ locale = 'Test'
 if __name__ == '__main__':
     img = cv2.imread(get_filename(image_id, locale), cv2.IMREAD_GRAYSCALE)
     start = timer()
-    matrix = load_prediction_matrix(image_id, img)
+    matrix = load_prediction_matrix(image_id)
     propose = get_proposals(matrix)
     print(timer() - start)
     print(len(propose))
