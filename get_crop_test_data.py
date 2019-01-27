@@ -1,6 +1,6 @@
 from propose_regions import *
 
-lines = [line.rstrip("\n") for line in open('../_10kRun/BeforeEM/First_class.csv', "r")]\
+lines = [line.rstrip("\n") for line in open('../_10kRun/BeforeEM/First_class.csv', "r")]
 
 lines.pop(0)
 
