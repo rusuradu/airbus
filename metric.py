@@ -76,7 +76,7 @@ df = {''}
 sm = 0.0
 imgs = 0
 
-out_file = open("res_zero.txt", "w")
+out_file = open("res.txt", "w")
 
 for line in lines:
     img_id = line.split(",")[0]
@@ -105,10 +105,14 @@ for line in lines:
     #     plt.close()  # close the figure to show the next one.
 
     if img_id not in df:
+        if img_id == '2e3ce58af.jpg':
+            jja = 5
+        if img_id == '03eaa8a5e.jpg':
+            jja =6
         true_masks = read_masks(img_id, df_test)
         pred_masks = read_masks(img_id, df_pred)
         df.add(img_id)
-        t = f2(true_masks, [np.zeros((768, 768), np.uint8)])
+        t = f2(true_masks, pred_masks)
         sm += t
         out_file.write("%s %f\n" % (img_id, t))
     imgs = imgs + 1
@@ -121,3 +125,4 @@ print(sm / imgs)
 
 # 0.6910569105691057
 # 0.7010657534795623 pred
+# 0.7157691884708288

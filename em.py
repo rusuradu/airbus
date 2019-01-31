@@ -5,7 +5,7 @@ from timeit import default_timer as timer
 
 class EM:
     def __init__(self, img, exec_no):
-        self.max_step = 12
+        self.max_step = 3
         self.clusters = 2
         self.miu = [0.0] * self.clusters
 

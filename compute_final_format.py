@@ -2,8 +2,7 @@ from utility import *
 from propose_regions import *
 
 
-
-def load_final_matrix(image_id, folder = "../Final_Matrix_Result"):
+def load_final_matrix(image_id, folder = "../FULLRUN_Matrix"):
     im_pred = np.zeros((IMAGE_SIZE_GLOBAL, IMAGE_SIZE_GLOBAL), np.uint8)
     lines = [line.rstrip('\n ') for line in open("%s/%s" % (folder, image_id.split(".")[0]))]
     i = 0
@@ -18,11 +17,11 @@ def load_final_matrix(image_id, folder = "../Final_Matrix_Result"):
     return im_pred
 
 
-outFile = open('../_10kRun/final.csv', "w")
+outFile = open('../_FinalRun/final_result.csv', "w")
 
 outFile.write('ImageId,EncodedPixels\n')
 
-lines = [line.rstrip("\n") for line in open('../_10kRun/BeforeEM/First_class.csv', "r")]
+lines = [line.rstrip("\n") for line in open('../_FinalRun/First_class_full.csv', "r")]
 lines.pop(0)
 
 asd=0
@@ -35,7 +34,7 @@ for line in lines:
     if ipred == 0:
         outFile.write('%s,\n' % imgFile)
     else:
-        mat = load_final_matrix(imgFile).transpose()
+        mat = load_final_matrix(imgFile) #.transpose()
         rs = multi_rle_encode(mat)
         wr = False
         for l in rs:

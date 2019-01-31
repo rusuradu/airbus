@@ -1,4 +1,4 @@
-#crop_img = img[y:y+h, x:x+w]
+# crop_img = img[y:y+h, x:x+w]
 import matplotlib.pyplot as plt
 from timeit import default_timer as timer
 from utility import *
@@ -10,7 +10,7 @@ WINDOW_SIZE = 224
 STRIDE = 136
 
 
-def load_prediction_matrix(image_id, folder = "../EM_Result1"):
+def load_prediction_matrix(image_id, folder="../Final_EM_Result"):
     im_pred = np.zeros((IMAGE_SIZE_GLOBAL, IMAGE_SIZE_GLOBAL), np.uint8)
     lines = [line.rstrip('\n ') for line in open("%s/%s" % (folder, image_id.split(".")[0]))]
     i = 0
@@ -22,12 +22,15 @@ def load_prediction_matrix(image_id, folder = "../EM_Result1"):
             im_pred[i, j] = int(val)
             j = j + 1
         i = i + 1
-    cv2.fastNlMeansDenoising(im_pred, im_pred)
-    return im_pred
+    final_res = np.zeros((IMAGE_SIZE_GLOBAL, IMAGE_SIZE_GLOBAL), np.uint8)
+    cv2.fastNlMeansDenoising(im_pred, final_res,
+                             templateWindowSize=21,
+                             searchWindowSize=21,
+                             h=95)
+    return final_res
 
 
 def compute_sum(em_prediction):
-
     def sw(vl):
         return int(1) - int(vl)
 
@@ -67,8 +70,8 @@ def get_proposals(em_prediction):
     return res
 
 
-image_id = '0b8cde107.jpg'
-locale = 'Test'
+image_id = '3e63ffa7f.jpg'
+locale = '10k'
 
 if __name__ == '__main__':
     img = cv2.imread(get_filename(image_id, locale), cv2.IMREAD_GRAYSCALE)
@@ -77,19 +80,29 @@ if __name__ == '__main__':
     propose = get_proposals(matrix)
     print(timer() - start)
     print(len(propose))
+
     fig = plt.figure(1, figsize=(30, 50))
 
-    ax = fig.add_subplot(1, len(propose) + 2, 1)
+    ax = fig.add_subplot(1, 2, 1)
     ax.imshow(img)
 
-    ax = fig.add_subplot(1,  len(propose) + 2, 2)
+    ax = fig.add_subplot(1, 2, 2)
     ax.imshow(matrix)
-
-    ind = 1
-    for (x, y) in propose:
-        ax = fig.add_subplot(1, len(propose) + 2, ind + 2)
-        crop_img = img[x:x + WINDOW_SIZE, y:y + WINDOW_SIZE]
-
-        ax.imshow(crop_img)
-        ind = ind + 1
     plt.show()
+
+    # fig = plt.figure(1, figsize=(30, 50))
+    #
+    # ax = fig.add_subplot(1, len(propose) + 2, 1)
+    # ax.imshow(img)
+    #
+    # ax = fig.add_subplot(1,  len(propose) + 2, 2)
+    # ax.imshow(matrix)
+    #
+    # ind = 1
+    # for (x, y) in propose:
+    #     ax = fig.add_subplot(1, len(propose) + 2, ind + 2)
+    #     crop_img = img[x:x + WINDOW_SIZE, y:y + WINDOW_SIZE]
+    #
+    #     ax.imshow(crop_img)
+    #     ind = ind + 1
+    # plt.show()

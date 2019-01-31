@@ -31,7 +31,7 @@ def has_common_area(x, y, lst):
     return area >= MIN_AREA
 
 
-lines = [line.rstrip("\n") for line in open('../_10kRun/Raw/_data.csv', "r")]
+lines = [line.rstrip("\n") for line in open('../ShipDetection/train_ship_segmentations_v2.csv', "r")]
 lines.pop(0)
 
 dc = {}
@@ -53,11 +53,11 @@ print('start img')
 print(len(dc.keys()))
 for img_key in dc.keys():
     lst = dc[img_key]
-    if len(lst[0]) != 0:
-        img = cv2.imread('../_10kRun/Raw/train/%s' % img_key)
+    if len(lst[0]) != 0 and random.random() < 0.25:
+        img = cv2.imread('../ShipDetection/TrainFull/%s' % img_key)
         st = {-1}
         for index in range(5):
-            rnd = 24#int(random.uniform(0, 25))
+            rnd = int(random.uniform(0, 25))
             while rnd in st:
                 rnd = int(random.uniform(0, 25))
             st.add(rnd)

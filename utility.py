@@ -28,6 +28,8 @@ def get_filename(image_id, image_type):
         data_path = "../ShipDetection/TestFull"
     elif "10k" == image_type:
         data_path = "../_10kRun/BeforeEM"
+    elif "final" == image_type:
+        data_path = "../_FinalRun/Raw/test"
     else:
         raise Exception("Image type '%s' is not recognized" % image_type)
 
@@ -67,7 +69,7 @@ def rle_encode(img):
     img: numpy array, 1 - mask, 0 - background
     Returns run length as string formated
     '''
-    pixels = img.flatten()
+    pixels = img.flatten('F')
     pixels = np.concatenate([[0], pixels, [0]])
     runs = np.where(pixels[1:] != pixels[:-1])[0] + 1
     runs[1::2] -= runs[::2]

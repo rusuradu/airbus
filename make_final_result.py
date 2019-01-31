@@ -1,7 +1,7 @@
 from utility import *
 from propose_regions import *
 
-lines = [line.rstrip("\n") for line in open("../_10kRun/Propose/Second_Res_Net_Result.csv", "r")]
+lines = [line.rstrip("\n") for line in open("../_FinalRun/SecondResNet.csv", "r")]
 lines.pop(0)
 dc = {}
 
@@ -15,7 +15,7 @@ for line in lines:
     else:
         dc[img_id] = dc[img_id] + [(img_part, iPred)]
 
-lines = [line.rstrip("\n") for line in open('../_10kRun/BeforeEM/First_class.csv', "r")]
+lines = [line.rstrip("\n") for line in open('../_FinalRun/First_class_full.csv', "r")]
 lines.pop(0)
 
 asd = 0
@@ -33,7 +33,7 @@ for line in lines:
         pred_mat = load_prediction_matrix(imgFile)
 
         if dc.get(imgFile.split(".")[0]) is None:
-            out_file = open("../Final_Matrix_Result/%s" % imgFile.split(".")[0], "w")
+            out_file = open("../FULLRUN_Matrix/%s" % imgFile.split(".")[0], "w")
             for l in pred_mat:
                 for el in l:
                     out_file.write("%d " % 1)
@@ -48,7 +48,7 @@ for line in lines:
                 for i in range(x, x + WINDOW_SIZE):
                     for j in range(y, y + WINDOW_SIZE):
                         final_mat[i, j] = int(pred_mat[i, j])
-        out_file = open("../Final_Matrix_Result/%s" % imgFile.split(".")[0], "w")
+        out_file = open("../FULLRUN_Matrix/%s" % imgFile.split(".")[0], "w")
 
         for l in final_mat:
             for el in l:
