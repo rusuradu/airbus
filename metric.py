@@ -66,61 +66,61 @@ def f2(masks_true, masks_pred):
         f2_total += f2
 
     return f2_total / len(thresholds)
+#
+#
+# lines = [line.rstrip('\n') for line in open("../_10kRun/final.csv")]
+# lines.pop(0)
+#
+# df = {''}
+#
+# sm = 0.0
+# imgs = 0
+#
+# out_file = open("res.txt", "w")
 
-
-lines = [line.rstrip('\n') for line in open("../_10kRun/final.csv")]
-lines.pop(0)
-
-df = {''}
-
-sm = 0.0
-imgs = 0
-
-out_file = open("res.txt", "w")
-
-for line in lines:
-    img_id = line.split(",")[0]
-
-    # if len(line.split(",")[1]) != 0 and img_id not in df:
-    #     true_mask = read_flat_mask(img_id, df_test)
-    #     pred_mask = read_flat_mask(img_id, df_pred)
-    #     df.add(img_id)
-    #     fig = plt.figure(1, figsize=(20, 15))  # create a new figure
-    #
-    #     ax = fig.add_subplot(1, 3, 1)
-    #     img = cv2.imread("../_10kRun/Raw/test/%s" % img_id)
-    #     ax.imshow(img)
-    #     ax.set_title(img_id)
-    #
-    #     ax = fig.add_subplot(1, 3, 2)
-    #     ax.imshow(true_mask)#, cmap='gray', interpolation='nearest')
-    #     ax.set_title('True mask')
-    #
-    #     ax = fig.add_subplot(1, 3, 3)
-    #     ax.imshow(pred_mask)#, cmap='gray', interpolation='nearest')
-    #     ax.set_title('Pred mask')
-    #
-    #     plt.show()  # show the figure, non-blocking
-    #     input()
-    #     plt.close()  # close the figure to show the next one.
-
-    if img_id not in df:
-        if img_id == '2e3ce58af.jpg':
-            jja = 5
-        if img_id == '03eaa8a5e.jpg':
-            jja =6
-        true_masks = read_masks(img_id, df_test)
-        pred_masks = read_masks(img_id, df_pred)
-        df.add(img_id)
-        t = f2(true_masks, pred_masks)
-        sm += t
-        out_file.write("%s %f\n" % (img_id, t))
-    imgs = imgs + 1
-    print(imgs)
-
-out_file.close()
-
-print(sm / imgs)
+# for line in lines:
+#     img_id = line.split(",")[0]
+#
+#     # if len(line.split(",")[1]) != 0 and img_id not in df:
+#     #     true_mask = read_flat_mask(img_id, df_test)
+#     #     pred_mask = read_flat_mask(img_id, df_pred)
+#     #     df.add(img_id)
+#     #     fig = plt.figure(1, figsize=(20, 15))  # create a new figure
+#     #
+#     #     ax = fig.add_subplot(1, 3, 1)
+#     #     img = cv2.imread("../_10kRun/Raw/test/%s" % img_id)
+#     #     ax.imshow(img)
+#     #     ax.set_title(img_id)
+#     #
+#     #     ax = fig.add_subplot(1, 3, 2)
+#     #     ax.imshow(true_mask)#, cmap='gray', interpolation='nearest')
+#     #     ax.set_title('True mask')
+#     #
+#     #     ax = fig.add_subplot(1, 3, 3)
+#     #     ax.imshow(pred_mask)#, cmap='gray', interpolation='nearest')
+#     #     ax.set_title('Pred mask')
+#     #
+#     #     plt.show()  # show the figure, non-blocking
+#     #     input()
+#     #     plt.close()  # close the figure to show the next one.
+#
+#     if img_id not in df:
+#         if img_id == '2e3ce58af.jpg':
+#             jja = 5
+#         if img_id == '03eaa8a5e.jpg':
+#             jja =6
+#         true_masks = read_masks(img_id, df_test)
+#         pred_masks = read_masks(img_id, df_pred)
+#         df.add(img_id)
+#         t = f2(true_masks, pred_masks)
+#         sm += t
+#         out_file.write("%s %f\n" % (img_id, t))
+#     imgs = imgs + 1
+#     print(imgs)
+#
+# out_file.close()
+#
+# print(sm / imgs)
 
 
 # 0.6910569105691057
